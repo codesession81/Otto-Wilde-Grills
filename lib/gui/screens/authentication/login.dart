@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:otto_wilde_recipies/gui/screens/private/home.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -96,17 +97,30 @@ class _LoginState extends State<Login> {
                          ],
                        ),
                        const SizedBox(height: 40),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius:  BorderRadius.circular(5),
-                          color: Colors.red,
-                        ),
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Text("Login",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold))
-                          ],
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()
+                            ),
+                          );
+                          /*if(_validLoginKey.currentState!.validate()){
+
+                          }*/
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:  BorderRadius.circular(5),
+                            color: Colors.red,
+                          ),
+                          height: 50,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[
+                              Text("Login",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold))
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(height: 5),
