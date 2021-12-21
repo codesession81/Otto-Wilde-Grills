@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:otto_wilde_recipies/data/lists/favorities.dart';
 import 'package:otto_wilde_recipies/data/lists/grill_parties.dart';
 import 'package:otto_wilde_recipies/data/lists/overview_header.dart';
-import 'package:otto_wilde_recipies/gui/screens/private/show_all/show_all_favorities.dart';
+import 'package:otto_wilde_recipies/gui/screens/private/show_all_items/show_all_items.dart';
 
 class Overview extends StatefulWidget {
   const Overview({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class Overview extends StatefulWidget {
 
 class _OverviewState extends State<Overview> {
 
-  showRecipe({String? title, String? category}){
+  showRecipeDialog({String? title, String? category}){
     showDialog(
         context:context,
         barrierDismissible: false,
@@ -31,7 +31,6 @@ class _OverviewState extends State<Overview> {
         }
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -80,10 +79,10 @@ class _OverviewState extends State<Overview> {
                     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 40),
                     child: Column(
                       children: <Widget>[
-                       const Text("NEW TO PLATFORM?",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20)),
-                       const SizedBox(height: 20),
-                       const Text("Connect your Grill to unlock the power of your Otto Grill",style: TextStyle(color: Colors.grey)),
-                       const SizedBox(height: 20),
+                        const Text("NEW TO PLATFORM?",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20)),
+                        const SizedBox(height: 20),
+                        const Text("Connect your Grill to unlock the power of your Otto Grill",style: TextStyle(color: Colors.grey)),
+                        const SizedBox(height: 20),
                         Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -107,7 +106,7 @@ class _OverviewState extends State<Overview> {
                 const Text("FAVORITES",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20)),
                 TextButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowAllFavoritRecipe(favoritRecipeList: Favorities.getFavoritiRecipeList())));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowAllItems(recipeList: Favorities.getFavoritiRecipeList(), title: 'FAVORITIES',)));
                   },
                   child: Row(
                     children: const <Widget> [
@@ -127,7 +126,7 @@ class _OverviewState extends State<Overview> {
                 itemBuilder: (context,index){
                   return GestureDetector(
                     onTap: (){
-                      showRecipe(title: Favorities.getFavoritiRecipeList()[index].title,category: Favorities.getFavoritiRecipeList()[index].category);
+                      showRecipeDialog(title:Favorities.getFavoritiRecipeList()[index].title,category: Favorities.getFavoritiRecipeList()[index].category);
                     },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +139,7 @@ class _OverviewState extends State<Overview> {
                               children: <Widget>[
                                 Image.network(Favorities.getFavoritiRecipeList()[index].imgUrl,height: 150),
                                 const Positioned(
-                                  right: 0,
+                                    right: 0,
                                     child: Icon(Icons.favorite,color: Colors.grey,size: 30,)
                                 ),
                               ],
@@ -158,7 +157,6 @@ class _OverviewState extends State<Overview> {
                         const SizedBox(height: 5),
                         Favorities.getFavoritiRecipeList()[index].title.length > 14 ? Text(Favorities.getFavoritiRecipeList()[index].title.substring(0, 14)+'...',style: const TextStyle(color: Colors.grey),):Text(Favorities.getFavoritiRecipeList()[index].title,style:const TextStyle(color: Colors.grey)),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             RatingBar.builder(
                               itemSize: 15,
@@ -175,12 +173,15 @@ class _OverviewState extends State<Overview> {
                 },
               ),
             ),
+            const SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 const Text("GRILLPARTY",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20)),
                 TextButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> ShowAllItems(recipeList: GrillParty.getGrillPartyList(), title: 'GRILL PARTY',)));
+                  },
                   child: Row(
                     children: const <Widget> [
                       Text("View all",style: TextStyle(color: Colors.grey)),
@@ -191,14 +192,16 @@ class _OverviewState extends State<Overview> {
                 )
               ],
             ),
-            Container(
+            SizedBox(
               height: 230,
               child: ListView.builder(
                 itemCount: GrillParty.getGrillPartyList().length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context,index){
                   return GestureDetector(
-                    onTap: ()=> showRecipe(title: GrillParty.getGrillPartyList()[index].title,category: GrillParty.getGrillPartyList()[index].category),
+                    onTap: (){
+                      showRecipeDialog(title: GrillParty.getGrillPartyList()[index].title,category: GrillParty.getGrillPartyList()[index].category);
+                    },
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -244,6 +247,7 @@ class _OverviewState extends State<Overview> {
                 },
               ),
             ),
+            const SizedBox(height: 25),
           ],
         ),
       ),
