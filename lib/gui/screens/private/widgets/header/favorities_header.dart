@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:otto_wilde_recipies/bloc/favorities_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/Favorities/favorities_bloc.dart';
 import 'package:otto_wilde_recipies/data/repository/favorities.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/show_all_items/show_all_items.dart';
 

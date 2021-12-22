@@ -7,5 +7,4 @@ abstract class FavoritiesEvent extends Equatable {
 class FetchFavoritesEvent extends FavoritiesEvent{
   @override
   List<Object?> get props => [];
-
 }

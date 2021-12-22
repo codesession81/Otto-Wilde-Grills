@@ -5,7 +5,6 @@ abstract class FavoriteRepository{
 }
 
 class Favorities extends FavoriteRepository{
-
    @override
   List<Recipe> getFavoritiRecipeList(){
     List<Recipe> favoritiRecipeList =[

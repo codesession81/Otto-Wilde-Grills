@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:otto_wilde_recipies/bloc/favorities_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/Favorities/favorities_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/grillparty/grill_party_bloc.dart';
 import 'package:otto_wilde_recipies/data/repository/favorities.dart';
+import 'package:otto_wilde_recipies/data/repository/grill_parties.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/overview.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/recipes.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/settings.dart';
@@ -41,8 +43,15 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => FavoritiesBloc(favoriteRepository: Favorities()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+            create: (context)=> FavoritiesBloc(favoriteRepository: Favorities())
+        ),
+        BlocProvider(
+            create: (context)=> GrillPartyBloc(grillPartyRepository: GrillParty())
+        )
+      ],
       child: Scaffold(
           backgroundColor: Colors.black,
           body: PageView(
@@ -70,6 +79,6 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-);
+    );
   }
 }

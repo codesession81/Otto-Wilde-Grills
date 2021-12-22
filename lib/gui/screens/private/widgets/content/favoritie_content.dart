@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:otto_wilde_recipies/bloc/favorities_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/Favorities/favorities_bloc.dart';
 import 'package:otto_wilde_recipies/gui/dialogs/show_recipe_dialog.dart';
 
 class FavoritiesContent extends StatefulWidget {
