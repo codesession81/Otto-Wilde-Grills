@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:otto_wilde_recipies/gui/errors/error_fields.dart';
+import 'package:otto_wilde_recipies/gui/screens/authentication/validation/email/is_email_empty.dart';
+import 'package:otto_wilde_recipies/gui/screens/authentication/validation/email/is_email_valid.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/home.dart';
 
 class Login extends StatefulWidget {
@@ -9,9 +12,12 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final String emailAllowed = "test@example.com";
   String? _email,_password;
   final GlobalKey<FormState> _validLoginKey = GlobalKey<FormState>();
   bool isPasswordHidden = true;
+  final IsEmailValid _isEmailValid = IsEmailValid();
+  final IsEmailEmpty _isEmailEmpty = IsEmailEmpty();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +34,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: <Widget>[
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +46,10 @@ class _LoginState extends State<Login> {
                   ),
                   Column(
                     children: <Widget>[
-
+                      SizedBox(
+                        height: 100,
+                        child: Image.network("http://cdn.shopify.com/s/files/1/0503/8522/3842/files/OWG_Logo_red_d4bf00d0-ea58-46ab-99ee-d170c2524837_1024x.png?v=1622017445",fit: BoxFit.fill,),
+                      )
                     ],
                   )
                 ],
@@ -48,6 +58,7 @@ class _LoginState extends State<Login> {
              Column(
                children: <Widget>[
                  Form(
+                   key: _validLoginKey,
                    child:Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
@@ -62,7 +73,20 @@ class _LoginState extends State<Login> {
                            keyboardType: TextInputType.emailAddress,
                            autovalidateMode: AutovalidateMode.onUserInteraction,
                            validator: (val){
-
+                             if(_isEmailEmpty.isEmailEmpty(val!)){
+                               return ErrorFields.requiredField;
+                             }else if(!_isEmailValid.isEmailValid(val)){
+                               return ErrorFields.inValidEmail;
+                             }else if(val!=emailAllowed){
+                               return ErrorFields.wrongEmail;
+                             }
+                             else{
+                               WidgetsBinding.instance?.addPostFrameCallback((_){
+                                 setState(() {
+                                   _email = val.trim();
+                                 });
+                               });
+                             }
                            },
                          ),
                        ),
@@ -85,7 +109,13 @@ class _LoginState extends State<Login> {
                              ),
                            ),
                            validator: (val){
-
+                             if(val!.isNotEmpty){
+                               WidgetsBinding.instance?.addPostFrameCallback((_){
+                                 setState(() {
+                                   _password = val.trim();
+                                 });
+                               });
+                             }
                            },
                          ),
                        ),
@@ -109,17 +139,24 @@ class _LoginState extends State<Login> {
 
                           }*/
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius:  BorderRadius.circular(5),
-                            color: Colors.red,
-                          ),
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[
-                              Text("Login",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold))
-                            ],
+                        child: GestureDetector(
+                          onTap: (){
+                            if(_validLoginKey.currentState!.validate()){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>const Home()));
+                            }
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius:  BorderRadius.circular(5),
+                              color: Colors.red,
+                            ),
+                            height: 50,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const <Widget>[
+                                Text("Login",style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold))
+                              ],
+                            ),
                           ),
                         ),
                       ),

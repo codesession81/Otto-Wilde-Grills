@@ -14,8 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> navListWidget = ["Tutorials","Products","News","Tutorials","Products","News","Tutorials","Products","News","Tutorials","Products","News"];
-
   late PageController pageController;
   int pageIndex =0;
 
