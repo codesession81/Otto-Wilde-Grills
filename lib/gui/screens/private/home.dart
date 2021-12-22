@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:otto_wilde_recipies/bloc/Favorities/favorities_bloc.dart';
 import 'package:otto_wilde_recipies/bloc/grillparty/grill_party_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/overview_header/overview_header_bloc.dart';
 import 'package:otto_wilde_recipies/data/repository/favorities.dart';
 import 'package:otto_wilde_recipies/data/repository/grill_parties.dart';
+import 'package:otto_wilde_recipies/data/repository/overview_header.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/overview.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/recipes.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/settings.dart';
@@ -50,6 +52,9 @@ class _HomeState extends State<Home> {
         ),
         BlocProvider(
             create: (context)=> GrillPartyBloc(grillPartyRepository: GrillParty())
+        ),
+        BlocProvider(
+            create: (context)=> OverviewHeaderBloc(overviewHeaderRepository: OverviewHeader())
         )
       ],
       child: Scaffold(
