@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:otto_wilde_recipies/bloc/favorities_bloc.dart';
+import 'package:otto_wilde_recipies/data/repository/favorities.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/overview.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/recipes.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/navigation_screens/settings.dart';
@@ -38,32 +41,35 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: PageView(
-        children:const <Widget> [
-          Overview(),
-          Recipes(),
-          Status(),
-          ShoppingList(),
-          Settings(),
-        ],
-        controller: pageController,
-        onPageChanged: onPageChanged,
-      ),
-      bottomNavigationBar: CupertinoTabBar(
-        currentIndex: pageIndex,
-        backgroundColor: Colors.black,
-        onTap: onTap,
-        activeColor: Colors.white,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined),label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.menu_book_outlined),label: "Recipes"),
-          BottomNavigationBarItem(icon: Icon(Icons.whatshot),label: "Status"),
-          BottomNavigationBarItem(icon: Icon(Icons.list),label: "Shopping List"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined),label: "Preferences"),
-        ],
-      ),
-    );
+    return BlocProvider(
+      create: (context) => FavoritiesBloc(favoriteRepository: Favorities()),
+      child: Scaffold(
+          backgroundColor: Colors.black,
+          body: PageView(
+            children:const <Widget> [
+              Overview(),
+              Recipes(),
+              Status(),
+              ShoppingList(),
+              Settings(),
+            ],
+            controller: pageController,
+            onPageChanged: onPageChanged,
+          ),
+          bottomNavigationBar: CupertinoTabBar(
+            currentIndex: pageIndex,
+            backgroundColor: Colors.black,
+            onTap: onTap,
+            activeColor: Colors.white,
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home_outlined),label: "Home"),
+              BottomNavigationBarItem(icon: Icon(Icons.menu_book_outlined),label: "Recipes"),
+              BottomNavigationBarItem(icon: Icon(Icons.whatshot),label: "Status"),
+              BottomNavigationBarItem(icon: Icon(Icons.list),label: "Shopping List"),
+              BottomNavigationBarItem(icon: Icon(Icons.settings_outlined),label: "Preferences"),
+            ],
+          ),
+        ),
+);
   }
 }

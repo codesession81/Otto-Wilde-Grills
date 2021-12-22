@@ -1,8 +1,13 @@
 import 'package:otto_wilde_recipies/data/models/recipe.dart';
 
-class Favorities{
+abstract class FavoriteRepository{
+  List<Recipe> getFavoritiRecipeList();
+}
 
-  static List<Recipe> getFavoritiRecipeList(){
+class Favorities extends FavoriteRepository{
+
+   @override
+  List<Recipe> getFavoritiRecipeList(){
     List<Recipe> favoritiRecipeList =[
       Recipe(category: "Fisch & Meeresfrüchte", title: "TERIYAKI LACHS MIT GRÜNEM GEMÜSE", time: "00:12", imgUrl: "https://cdn.shopify.com/s/files/1/0503/8522/3842/articles/Lachs_1000_750x.png?v=1625828114", rating: "3.4",people: "2"),
       Recipe(category: "Dessert", title: "BRATAPFEL", time: "00:04", imgUrl: "https://cdn.shopify.com/s/files/1/0503/8522/3842/articles/Bratapfel-08633_1000x750_Final_750x.jpg?v=1637308739", rating: "4.5",people: "4"),

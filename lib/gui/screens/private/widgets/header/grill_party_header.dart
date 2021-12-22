@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otto_wilde_recipies/data/lists/grill_parties.dart';
+import 'package:otto_wilde_recipies/data/repository/grill_parties.dart';
 import 'package:otto_wilde_recipies/gui/screens/private/show_all_items/show_all_items.dart';
 
 class GrillPartyHeader extends StatelessWidget {

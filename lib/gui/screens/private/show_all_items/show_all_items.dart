@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:otto_wilde_recipies/data/lists/favorities.dart';
+
 import 'package:otto_wilde_recipies/data/models/recipe.dart';
+import 'package:otto_wilde_recipies/data/repository/favorities.dart';
 
 class ShowAllItems extends StatefulWidget {
   final List<Recipe>? recipeList;
@@ -40,20 +41,20 @@ class _ShowAllItemsState extends State<ShowAllItems> {
                 children: <Widget>[
                   const Icon(Icons.watch_later_outlined,color: Colors.grey,size: 15),
                   const SizedBox(width: 5),
-                  Text(Favorities.getFavoritiRecipeList()[index].time,style:const TextStyle(color: Colors.grey),),
+                  Text(widget.recipeList![index].time,style:const TextStyle(color: Colors.grey),),
                 ],
               ),
               const SizedBox(height: 5),
-              Favorities.getFavoritiRecipeList()[index].title.length > 14 ? Text(Favorities.getFavoritiRecipeList()[index].title.substring(0, 14)+'...',style: const TextStyle(color: Colors.grey),):Text(Favorities.getFavoritiRecipeList()[index].title,style:const TextStyle(color: Colors.grey)),
+              widget.recipeList![index].title.length > 14 ? Text(widget.recipeList![index].title.substring(0, 14)+'...',style: const TextStyle(color: Colors.grey),):Text(widget.recipeList![index].title,style:const TextStyle(color: Colors.grey)),
               Row(
                 children: <Widget>[
                   RatingBar.builder(
                     itemSize: 15,
-                    initialRating: double.parse(Favorities.getFavoritiRecipeList()[index].rating),
+                    initialRating: double.parse(widget.recipeList![index].rating),
                     itemBuilder: (context,_)=> const Icon(Icons.star,color: Colors.yellow,),
                     onRatingUpdate: (rating){},
                   ),
-                  Text("(${Favorities.getFavoritiRecipeList()[index].people})",style:const TextStyle(color: Colors.grey))
+                  Text("(${widget.recipeList![index].people})",style:const TextStyle(color: Colors.grey))
                 ],
               )
             ],

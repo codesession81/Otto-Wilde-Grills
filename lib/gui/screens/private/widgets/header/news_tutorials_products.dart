@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:otto_wilde_recipies/data/lists/overview_header.dart';
+import 'package:otto_wilde_recipies/data/repository/overview_header.dart';
 
 class NewsTutorialsProducts extends StatelessWidget {
   const NewsTutorialsProducts({Key? key}) : super(key: key);

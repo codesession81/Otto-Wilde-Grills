@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:otto_wilde_recipies/data/lists/grill_parties.dart';
+import 'package:otto_wilde_recipies/data/repository/grill_parties.dart';
 import 'package:otto_wilde_recipies/gui/dialogs/show_recipe_dialog.dart';
 
 class GrillPartyContent extends StatelessWidget {

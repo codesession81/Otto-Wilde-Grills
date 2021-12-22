@@ -30,7 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.0
-  flutter_bloc: ^8.0.0
+  flutter_bloc: ^7.3.2
   equatable: ^2.0.3
   rxdart: 0.24.0
   meta: ^1.7.0
